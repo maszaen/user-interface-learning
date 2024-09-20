@@ -37,7 +37,7 @@ export default function Home() {
             <Link href={"/database"}>
               <div className={isOpen ? "subCard" : "hidden"}>
                 <div className="cardContent">
-                  <h3>Microsoft UI</h3>
+                  <h3>MicrosoftUI</h3>
                 </div>
               </div>
             </Link>
