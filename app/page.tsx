@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image";
 import Footer from "./components/footer/page";
 import DriveAuth from "./components/driveauth/page";
