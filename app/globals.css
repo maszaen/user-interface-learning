@@ -92,6 +92,10 @@ body {
     min-width: 100%
   }
 
+  .grey-color {
+    color: var(--secondaryAccent);
+  }
+
   
 }
 
