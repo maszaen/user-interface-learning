@@ -1,6 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: 'SF UI Display';
+  src: url('/app/fonts/SFUIDisplay.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 :root {
   --background: #ffffff;
@@ -9,19 +16,82 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #181C14;
     --foreground: #ededed;
+    --primaryAccent: #3C3D37;
+    --primaryHover: #697565;
+    --secondaryAccent: #909287;
   }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: SF UI Display, sans-serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+
+  .hidden {
+    background-color: var(--primaryAccent);
+    border-radius:7px;
+    height: auto;
+    display:flex;
+    align-items:center;
+    padding: 10px 15px;
+    transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+    transform: scale(0.96);
+  }
+
+  .height-display {
+    height: 100dvh;
+  }
+
+  .dashCard {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    min-width: 450px;
+    height: auto;
+    gap: 7px;
+  }
+
+  .dashCard p {
+    font-size: 23px;
+    padding-left: 6px;
+    margin-bottom: 5px;
+  }
+
+  .subCard {
+    background-color: var(--primaryAccent);
+    border-radius:7px;
+    height: auto;
+    display:flex;
+    align-items:center;
+    padding: 10px 15px;
+    transition: all 0.7s cubic-bezier(0.15, 0.83, 0.66, 1);
+    transform: scale(1);
+  }
+
+  .subCard:hover {
+    background-color: var(--primaryHover);
+    transform: scale(1.03);
+  }
+
+  .cardContent {
+
+  }
+
+  .directory {
+    color: var(--secondaryAccent);
+    padding: 7px;
+    border-radius: 7px;
+    min-width: 100%
+  }
+
+  
 }
+

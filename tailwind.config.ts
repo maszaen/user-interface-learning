@@ -12,6 +12,9 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        'sf-ui-display': ['"SF UI Display"', 'sans-serif'], 
+      },
     },
   },
   plugins: [],
