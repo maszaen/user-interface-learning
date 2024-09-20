@@ -11,6 +11,7 @@ export default function DriveAuth() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [files, setFiles] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  
 
   useEffect(() => {
     function start() {
@@ -52,22 +53,20 @@ export default function DriveAuth() {
     gapi.auth2.getAuthInstance().signOut();
   };
 
+  interface GoogleDriveFile {
+    id: string;
+    name: string;
+  }
+  
   const listFiles = async () => {
-    try {
-      const response = await gapi.client.drive.files.list({
-        pageSize: 10,
-        fields: "files(id, name)",
-      });
-      const files = response.result.files;
-      if (files && files.length > 0) {
-        setFiles(files.map((file: any) => `${file.name} (${file.id})`));
-      } else {
-        setFiles([]);
-      }
-    } catch (error: any) {
-      setErrorMessage("Error fetching files: " + error.message);
-    }
+    const response = await gapi.client.drive.files.list({
+      pageSize: 10,
+      fields: "files(id, name)",
+    });
+    const files: GoogleDriveFile[] = response.result.files; // Use the new type here
+    setFiles(files.map((file) => `${file.name} (${file.id})`));
   };
+  
 
   return (
     <div>
