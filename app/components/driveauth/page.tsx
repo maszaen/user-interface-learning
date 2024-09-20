@@ -30,11 +30,11 @@ export default function DriveAuth() {
               setIsSignedIn(GoogleAuth.isSignedIn.get());
               GoogleAuth.isSignedIn.listen(setIsSignedIn);
             })
-            .catch((error) => {
+            .catch((error: any) => {
               setErrorMessage("Error initializing Google Auth: " + error.message);
             });
         })
-        .catch((error) => {
+        .catch((error: any) => {
           setErrorMessage("Error initializing GAPI Client: " + error.message);
         });
     }
@@ -43,7 +43,7 @@ export default function DriveAuth() {
   }, []);
 
   const handleAuthClick = () => {
-    gapi.auth2.getAuthInstance().signIn().catch((error) => {
+    gapi.auth2.getAuthInstance().signIn().catch((error: any) => {
       setErrorMessage("Sign-in failed: " + error.message);
     });
   };
@@ -72,8 +72,6 @@ export default function DriveAuth() {
   return (
     <div>
       <h1>Google Drive API Quickstart</h1>
-      <p>{API_KEY}</p>
-      <p>{CLIENT_ID}</p>
       {isSignedIn ? (
         <>
           <button onClick={handleSignoutClick}>Sign Out</button>
