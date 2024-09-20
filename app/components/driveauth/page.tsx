@@ -35,12 +35,12 @@ export default function DriveAuth() {
               setIsSignedIn(GoogleAuth.isSignedIn.get());
               GoogleAuth.isSignedIn.listen(setIsSignedIn);
             })
-            .catch((error: { message: string; }) => {
-              setErrorMessage("Error initializing Google Auth: " + error.message);
+            .catch(() => {
+              setErrorMessage("Error initializing Google Auth.");
             });
         })
-        .catch((error: { message: string; }) => {
-          setErrorMessage("Error initializing GAPI Client: " + error.message);
+        .catch(() => {
+          setErrorMessage("Error initializing GAPI Client.");
         });
     }
 
@@ -48,8 +48,8 @@ export default function DriveAuth() {
   }, []);
 
   const handleAuthClick = () => {
-    gapi.auth2.getAuthInstance().signIn().catch((error: { message: string; }) => {
-      setErrorMessage("Sign-in failed: " + error.message);
+    gapi.auth2.getAuthInstance().signIn().catch(() => {
+      setErrorMessage("Sign-in failed.");
     });
   };
 
@@ -63,14 +63,14 @@ export default function DriveAuth() {
         pageSize: 10,
         fields: "files(id, name)",
       });
-      const files = response.result.files as GoogleDriveFile[]; // Use the defined type
+      const files = response.result.files as GoogleDriveFile[];
       if (files && files.length > 0) {
         setFiles(files.map(file => `${file.name} (${file.id})`));
       } else {
         setFiles([]);
       }
-    } catch (error: any) {
-      setErrorMessage("Error fetching files: " + error.message);
+    } catch {
+      setErrorMessage("Error fetching files.");
     }
   };
 
