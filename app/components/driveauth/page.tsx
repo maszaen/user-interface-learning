@@ -1,7 +1,9 @@
-'use client'
+'use client';
+
 import { useEffect, useState } from "react";
 import { gapi } from "gapi-script";
 
+// Pastikan API_KEY dan CLIENT_ID terdefinisi dengan benar
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
 const DISCOVERY_DOC = "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest";
@@ -13,33 +15,35 @@ export default function DriveAuth() {
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
-    function start() {
-      gapi.client
-        .init({
-          apiKey: API_KEY,
-          discoveryDocs: [DISCOVERY_DOC],
-        })
-        .then(() => {
-          gapi.auth2
-            .init({
-              client_id: CLIENT_ID,
-              scope: SCOPES,
-            })
-            .then(() => {
-              const GoogleAuth = gapi.auth2.getAuthInstance();
-              setIsSignedIn(GoogleAuth.isSignedIn.get());
-              GoogleAuth.isSignedIn.listen(setIsSignedIn);
-            })
-            .catch((error: any) => {
-              setErrorMessage("Error initializing Google Auth: " + error.message);
-            });
-        })
-        .catch((error: any) => {
-          setErrorMessage("Error initializing GAPI Client: " + error.message);
-        });
-    }
+    if (typeof window !== "undefined") {
+      const start = () => {
+        gapi.client
+          .init({
+            apiKey: API_KEY,
+            discoveryDocs: [DISCOVERY_DOC],
+          })
+          .then(() => {
+            gapi.auth2
+              .init({
+                client_id: CLIENT_ID,
+                scope: SCOPES,
+              })
+              .then(() => {
+                const GoogleAuth = gapi.auth2.getAuthInstance();
+                setIsSignedIn(GoogleAuth.isSignedIn.get());
+                GoogleAuth.isSignedIn.listen(setIsSignedIn);
+              })
+              .catch((error: any) => {
+                setErrorMessage("Error initializing Google Auth: " + error.message);
+              });
+          })
+          .catch((error: any) => {
+            setErrorMessage("Error initializing GAPI Client: " + error.message);
+          });
+      };
 
-    gapi.load(start);
+      gapi.load('client:auth2', start);
+    }
   }, []);
 
   const handleAuthClick = () => {
