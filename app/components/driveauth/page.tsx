@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState } from "react";
 import { gapi } from "gapi-script";
 
@@ -38,7 +39,7 @@ export default function DriveAuth() {
         });
     }
 
-    gapi.load("client:auth2", start);
+    gapi.load(start);
   }, []);
 
   const handleAuthClick = () => {
