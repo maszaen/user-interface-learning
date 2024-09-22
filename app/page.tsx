@@ -1,24 +1,28 @@
 'use client'
 import Image from "next/image";
 import Footer from "./components/footer/page";
-import DriveAuth from "./components/driveauth/page";
+import { useAuthDrive, handleAuthClick, handleSignoutClick, listFiles } from "./components/driveauth/page";
 
 export default function Home() {
+  const { isSignedIn, files, errorMessage, setFiles, setErrorMessage } = useAuthDrive();
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-      <DriveAuth/>
-        <div className="flex flex-col gap-3">
-          <p>Powered by:</p>
-          <Image
-            className="dark:invert"
-            src="https://nextjs.org/icons/next.svg"
-            alt="Next.js logo"
-            width={180}
-            height={38}
-            priority
-          />
-        </div>
+      <div>
+      <h1>My Drive Page</h1>
+      {isSignedIn ? (
+        <>
+          <button onClick={handleSignoutClick}>Sign Out</button>
+          <button onClick={() => listFiles(setFiles, setErrorMessage)}>List Files</button>
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+          <pre>{files.length ? files.join("\n") : "No files found."}</pre>
+        </>
+      ) : (
+        <>
+          <button onClick={handleAuthClick}>Authorize</button>
+        </>
+      )}
+    </div>
         <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li className="mb-2">
             Mulailah bereksperimen, buka dan edit folder{" "}
