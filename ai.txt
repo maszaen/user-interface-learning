@@ -1,0 +1,41 @@
+sudo genisoimage -o custom-ubuntu-macos-final.iso \
+  -R -J \
+  -b isolinux/isolinux.bin \
+  -c isolinux/boot.cat \
+  -no-emul-boot \
+  -boot-load-size 4 \
+  -boot-info-table /mnt/working/
+
+Pengaturan Tambahan untuk Kenyamanan:
+
+bashCopy# Atur gestur touchpad mirip MacOS
+gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
+gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+
+# Atur hot corner
+gsettings set org.gnome.desktop.interface enable-hot-corners true
+
+# Atur workspace mirip MacOS
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
+Tips Tambahan:
+
+Setelah instalasi, gunakan Gnome Tweaks untuk menyesuaikan:
+
+Posisi tombol window (kiri/kanan)
+Ukuran font
+Tema aplikasi dan shell
+
+
+Untuk Plank dock:
+
+Klik kanan > Preferences
+Atur tema ke "Transparent"
+Sesuaikan ukuran icon
+Aktifkan zoom effect
+
+
+Backup konfigurasi:
+
+bashCopy# Backup pengaturan tema
+dconf dump /org/gnome/ > gnome-settings-backup
+Setelah semua langkah selesai, Anda akan memiliki Ubuntu custom dengan tampilan mirip MacOS. Jangan lupa untuk selalu membuat snapshot VM sebelum melakukan perubahan besar.
